@@ -2,6 +2,16 @@ var pagination = {
   _setCurrent: function(i) {
     if (!that.$pagination) { return; }
 
+    // begin mod: set pagination parent class based on index.
+    // now pagination can have conditional formatting (dark or light) 
+    // depending on the current slide. Parent class is called superslides-1,
+    // superslides-2, etc.
+    // similar to technique in http://stackoverflow.com/questions/2644299/jquery-removeclass-wildcard
+    that.$pagination.removeClass(function (index, css) {
+      return (css.match (/(^|\s)superslides-\S+/g) || []).join(' ');
+    }).addClass('superslides-'+(i+1));
+    // end mod
+
     var $pagination_children = that.$pagination.children();
 
     $pagination_children.removeClass('current');
